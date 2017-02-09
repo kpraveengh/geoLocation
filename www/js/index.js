@@ -1,21 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */ 
 
 	function getPosition() {
 
@@ -25,17 +7,45 @@
    }
 	
    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+$("#getPosition").onload(function(){
+    alert("Image loaded.");
+});
 
    function onSuccess(position) {
+    var txt;
+    var r = confirm("Click ok to select Current Location");
+    if (r == true) {
+       		 var latitude =position.coords.latitude;
+		 var longitude = position.coords.longitude;
+			$(document).ready(function () {
+				$.ajax({
+					 type: "GET",
+					  url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+ latitude +','+longitude+'&sensor=true',
+					context: document.body,
+					success: function (data) {						
+						console.log(data.results[4].formatted_address)
+						var str=data.results[4].formatted_address
+						var currentLocationNameData= str.split(" ")[0]
+						var currentLocationName= currentLocationNameData.replace(/\,/g,"");
+						
+						alert(currentLocationName);
+						localStorage.setItem('data', JSON.stringify(currentLocationName));
+					}});
+			})
+    } else {
+      alert("Hurray!");
+    }
+    document.getElementById("demo").innerHTML =data.results[4].formatted_address;
 
-      alert('Latitude: '          + position.coords.latitude          + '\n' +
-         'Longitude: '         + position.coords.longitude         + '\n' +
-         'Altitude: '          + position.coords.altitude          + '\n' +
-         'Accuracy: '          + position.coords.accuracy          + '\n' +
-         'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-         'Heading: '           + position.coords.heading           + '\n' +
-         'Speed: '             + position.coords.speed             + '\n' +
-         'Timestamp: '         + position.timestamp                + '\n');
+		   // alert('Latitude: '          + position.coords.latitude          + '\n' +
+         // 'Longitude: '         + position.coords.longitude         + '\n' +
+         // 'Altitude: '          + position.coords.altitude          + '\n' +
+         // 'Accuracy: '          + position.coords.accuracy          + '\n' +
+         // 'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+         // 'Heading: '           + position.coords.heading           + '\n' +
+         // 'Speed: '             + position.coords.speed             + '\n' +
+         // 'Timestamp: '         + position.timestamp                + '\n' );
+		 
    };
 
    function onError(error) {
@@ -93,6 +103,7 @@ function audioCapture() {
    }
 	
 }
+
 document.getElementById("getPosition").addEventListener("click", getPosition);
 document.getElementById("watchPosition").addEventListener("click", watchPosition);
 document.getElementById("audioCapture").addEventListener("click", audioCapture);

@@ -42,7 +42,7 @@ li a:hover {
   <li><a class="active" href="#home">Home</a></li>
   <li><a href="#news">News</a></li>
   <li><a href="#contact">Contact</a></li>
-  <li style="float:right; color:#fff"><a id = "getPosition" >Current Address</a></li>
+  <li style="float:right; color:#fff"><a id = "getPosition" >Select City</a></li>
 </ul>
         <div class="app">
 		
@@ -59,7 +59,6 @@ li a:hover {
         </div>
 		<script type="text/javascript">
 		$("#getPosition").click(function(){
-
 		var retrievedObject = localStorage.getItem('data');
 		console.log('retrievedObject: ', JSON.parse(retrievedObject));
 		var x= JSON.parse(retrievedObject);

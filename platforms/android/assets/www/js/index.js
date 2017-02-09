@@ -7,14 +7,7 @@
    }
 	
    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
-$("#getPosition").onload(function(){
-    alert("Image loaded.");
-});
-
    function onSuccess(position) {
-    var txt;
-    var r = confirm("Click ok to select Current Location");
-    if (r == true) {
        		 var latitude =position.coords.latitude;
 		 var longitude = position.coords.longitude;
 			$(document).ready(function () {
@@ -28,12 +21,10 @@ $("#getPosition").onload(function(){
 						var currentLocationNameData= str.split(" ")[0]
 						var currentLocationName= currentLocationNameData.replace(/\,/g,"");
 						
-						alert(currentLocationName);
+						// alert(currentLocationName);
 						localStorage.setItem('data', JSON.stringify(currentLocationName));
 					}});
 			})
-    } else {
-      alert("Hurray!");
     }
     document.getElementById("demo").innerHTML =data.results[4].formatted_address;
 

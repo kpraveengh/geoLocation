@@ -11,16 +11,45 @@
  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhL0OQNAPgHxB7VJN5DWuiBVu9Acl4JnU&callback=initMap"
   type="text/javascript"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+</style>
     </head>
     <body>
-			<p id = "location"></p>
+<ul>
+  <li><a class="active" href="#home">Home</a></li>
+  <li><a href="#news">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li style="float:right; color:#fff"><a id = "getPosition" >Current Address</a></li>
+</ul>
         <div class="app">
-
+		
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
-				<button id = "getPosition" onclick="myFunction()">Current Address</button>
 				<button id = "watchPosition">WATCH POSITION</button>
 				<button id = "audioCapture">AUDIO</button>
 				<button id = "imageCapture">IMAGE</button>
@@ -29,10 +58,13 @@
             </div>
         </div>
 		<script type="text/javascript">
+		$("#getPosition").click(function(){
+
 		var retrievedObject = localStorage.getItem('data');
 		console.log('retrievedObject: ', JSON.parse(retrievedObject));
 		var x= JSON.parse(retrievedObject);
-	document.getElementById("location"). innerHTML=x;
+		document.getElementById("getPosition"). innerHTML=x;
+		});
 </script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
